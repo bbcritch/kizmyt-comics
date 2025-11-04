@@ -2,33 +2,37 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Kizmyt Debug</title>
+    <title>Kizmyt Comics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-      body { margin:0; background:#111; color:#fff; font-family:system-ui; text-align:center; padding:40px; line-height:1.6; }
-      pre { background:#222; padding:15px; border-radius:8px; margin:20px auto; max-width:800px; overflow:auto; }
-      button { margin:10px; padding:12px 24px; font-size:18px; background:#333; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+      body { margin:0; background:#111; color:#fff; font-family:system-ui; text-align:center; padding:20px; }
+      img { max-width:100%; width:650px; border:8px solid #333; border-radius:12px; }
+      button { margin:5px; padding:12px 24px; font-size:18px; background:#333; color:#fff; border:none; border-radius:8px; cursor:pointer; }
       button:hover { background:#555; }
     </style>
   </head>
   <body>
-    <h1>Kizmyt Debug Mode</h1>
-    <p>Click to see the exact image URL being requested:</p>
-    <button onclick="show(1)">Show Comic #1 URL</button>
-    <button onclick="show(2)">Show Comic #2 URL</button>
-    <pre id="output">Click a button above</pre>
+    <h1>Kizmyt Comics</h1>
+    <p>
+      <button onclick="id=Math.max(1,id-1);load()">Prev</button>
+      <b><span id="num">1</span></b>
+      <button onclick="id=Math.min(max,id+1);load()">Next</button>
+    </p>
+    <img id="comic" src="/001.jpg">
+    <p id="cap" style="font-style:italic;color:#999">No caption</p>
 
     <script>
-      function show(n) {
-        const num = n.toString().padStart(3,'0')
-        const url = `/${num}.jpg`
-        document.getElementById('output').textContent = 
-`Trying to load:
-${url}
-
-Open this in a new tab to test:
-https://kizmyt.com${url}`
+      let id=1, max=1
+      fetch('/max.txt').then(r=>r.text()).then(t=>max=+t.trim())
+      function load() {
+        document.getElementById('comic').src = `/${id.toString().padStart(3,'0')}.jpg`
+        document.getElementById('num').textContent = id
+        fetch(`/${id.toString().padStart(3,'0')}.txt`)
+          .then(r=>r.text())
+          .then(t=>document.getElementById('cap').textContent=t.trim()||'No caption')
       }
+      load()
+      setInterval(() => id<=max && load(), 500)
     </script>
   </body>
 </html>
