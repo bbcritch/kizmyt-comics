@@ -18,16 +18,16 @@
       <b><span id="num">1</span></b>
       <button onclick="id=Math.min(max,id+1);load()">Next</button>
     </p>
-    <img id="comic" src="/comics/001.jpg">
+    <img id="comic" src="/001.jpg">
     <p id="cap" style="font-style:italic;color:#999">No caption</p>
 
     <script>
       let id=1, max=1
-      fetch('/comics/max.txt').then(r=>r.text()).then(t=>max=+t.trim())
+      fetch('/max.txt').then(r=>r.text()).then(t=>max=+t.trim())
       function load() {
-        document.getElementById('comic').src = `/comics/${id.toString().padStart(3,'0')}.jpg`
+        document.getElementById('comic').src = `/${id.toString().padStart(3,'0')}.jpg`
         document.getElementById('num').textContent = id
-        fetch(`/comics/${id.toString().padStart(3,'0')}.txt`)
+        fetch(`/${id.toString().padStart(3,'0')}.txt`)
           .then(r=>r.text())
           .then(t=>document.getElementById('cap').textContent=t.trim()||'No caption')
       }
