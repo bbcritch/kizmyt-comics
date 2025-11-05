@@ -5,34 +5,14 @@
     <title>Kizmyt Comics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-      body{margin:0;background:#111;color:#fff;font-family:system-ui;text-align:center;padding:20px}
-      img{max-width:100%;width:650px;border:8px solid #333;border-radius:12px}
-      button{margin:5px;padding:12px 24px;font-size:18px;background:#333;color:#fff;border:none;border-radius:8px;cursor:pointer}
-      button:hover{background:#555}
+      body { margin:0; background:#111; color:#fff; font-family:system-ui; text-align:center; padding:20px; }
+      img { max-width:100%; width:650px; border:8px solid #333; border-radius:12px; }
     </style>
   </head>
   <body>
     <h1>Kizmyt Comics</h1>
-    <p>
-      <button onclick="id=Math.max(1,id-1);load()">Prev</button>
-      <b><span id="num">1</span></b>
-      <button onclick="id=Math.min(max,id+1);load()">Next</button>
-    </p>
-    <img id="comic" src="/001.jpg">
-    <p id="cap" style="font-style:italic;color:#999">No caption</p>
-
-    <script>
-      let id=1, max=1
-      fetch('/max.txt').then(r=>r.text()).then(t=>max=+t.trim())
-      function load(){
-        document.getElementById('comic').src=`/${id.toString().padStart(3,'0')}.jpg`
-        document.getElementById('num').textContent=id
-        fetch(`/${id.toString().padStart(3,'0')}.txt`)
-          .then(r=>r.text())
-          .then(t=>document.getElementById('cap').textContent=t.trim()||'No caption')
-      }
-      load()
-      setInterval(()=>id<=max&&load(),500)
-    </script>
+    <p>Comic #1</p>
+    <img src="/001.jpg" alt="Comic 1">
+    <p>No caption</p>
   </body>
 </html>
