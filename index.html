@@ -5,10 +5,10 @@
     <title>Kizmyt Comics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-      body { margin:0; background:#111; color:#fff; font-family:system-ui; text-align:center; padding:20px; }
-      img { max-width:100%; width:650px; border:8px solid #333; border-radius:12px; }
-      button { margin:5px; padding:12px 24px; font-size:18px; background:#333; color:#fff; border:none; border-radius:8px; cursor:pointer; }
-      button:hover { background:#555; }
+      body{margin:0;background:#111;color:#fff;font-family:system-ui;text-align:center;padding:20px}
+      img{max-width:100%;width:650px;border:8px solid #333;border-radius:12px}
+      button{margin:5px;padding:12px 24px;font-size:18px;background:#333;color:#fff;border:none;border-radius:8px;cursor:pointer}
+      button:hover{background:#555}
     </style>
   </head>
   <body>
@@ -24,15 +24,15 @@
     <script>
       let id=1, max=1
       fetch('/max.txt').then(r=>r.text()).then(t=>max=+t.trim())
-      function load() {
-        document.getElementById('comic').src = `/${id.toString().padStart(3,'0')}.jpg`
-        document.getElementById('num').textContent = id
+      function load(){
+        document.getElementById('comic').src=`/${id.toString().padStart(3,'0')}.jpg`
+        document.getElementById('num').textContent=id
         fetch(`/${id.toString().padStart(3,'0')}.txt`)
           .then(r=>r.text())
           .then(t=>document.getElementById('cap').textContent=t.trim()||'No caption')
       }
       load()
-      setInterval(() => id<=max && load(), 500)
+      setInterval(()=>id<=max&&load(),500)
     </script>
   </body>
 </html>
